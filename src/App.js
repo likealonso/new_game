@@ -5,31 +5,34 @@ import Person from './Person/Person'
 class App extends Component {
   state = {
     persons: [
-      { name: 'Sam', age: 27 },
-      { name: 'Alonso', age: 33 },
-      { name: 'Patrick', age: 23 },
+      { id: 1, name: 'Sam', age: 27 },
+      { id: 2, name: 'Alonso', age: 33 },
+      { id: 3, name: 'Patrick', age: 23 },
     ],
     otherState: 'whatever',
     showPersons: false
   }
 
-  switchNameHandler = (newName) => {
+  
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => p.id === id)
+    const person = {...this.state.persons[personIndex]}
+    // const person = Object.assign({}, this.state.persons[personIndex]) //same as above line
+    person.name = event.target.value;
+    const persons = [...this.state.persons]
+    persons[personIndex] = person
+
     this.setState({
-      persons: [
-        { name: newName, age: 30 },
-        { name: 'Alonso', age: 33 },
-        { name: 'Patrick', age: 24 },
-      ]
+      persons: persons
     })
   }
-  
-  nameChangedHandler = (event) => {
+
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice(); //copies the array and returns a new one
+    const persons = [...this.state.persons]; // modern version of above
+    persons.splice(personIndex, 1);
     this.setState({
-      persons: [
-        { name: 'Sam', age: 27 },
-        { name: event.target.value, age: 33 },
-        { name: 'Patrick', age: 23 },
-      ]
+      persons: persons
     })
   }
 
@@ -49,6 +52,23 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let persons = null
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => 
+            <Person 
+              click={() => this.deletePersonHandler(index)}
+              name={person.name} 
+              age={person.age} 
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)}
+            />
+          )}
+        </div> 
+      )
+    }
+
     return (
       <div className="App">
         <h1>This is my new game</h1>
@@ -56,25 +76,7 @@ class App extends Component {
         <button 
           style={style}
           onClick={this.togglePersonHandler}>Toggle Persons</button>
-        {this.state.showPersons ?
-        <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}
-          />
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, 'Sam!!')} 
-            changed={this.nameChangedHandler}>
-            My hobbies: Sports
-          </Person>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}
-          />
-        </div> : null
-        }
+        {persons}
       </div>
 
     );
