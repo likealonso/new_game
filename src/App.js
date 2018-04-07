@@ -15,11 +15,19 @@ class App extends Component {
 
   
   nameChangedHandler = (event, id) => {
+    //index number of person
     const personIndex = this.state.persons.findIndex(p => p.id === id)
+    
+    //one person object w id, name, age
     const person = {...this.state.persons[personIndex]}
     // const person = Object.assign({}, this.state.persons[personIndex]) //same as above line
+    
+    //name changes as you type
     person.name = event.target.value;
+    
+    //all persons objects as they change with event.target.value
     const persons = [...this.state.persons]
+    
     persons[personIndex] = person
 
     this.setState({
@@ -45,7 +53,8 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'Arial',
       border: '1px solid blue',
       padding: '8px',
@@ -67,6 +76,7 @@ class App extends Component {
           )}
         </div> 
       )
+      style.backgroundColor = 'red'
     }
 
     return (
@@ -75,7 +85,8 @@ class App extends Component {
         <p>Or is it?</p>
         <button 
           style={style}
-          onClick={this.togglePersonHandler}>Toggle Persons</button>
+          onClick={this.togglePersonHandler}>Toggle Persons
+        </button>
         {persons}
       </div>
 
