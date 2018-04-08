@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
+import radium from 'radium'
 
 class App extends Component {
   state = {
@@ -78,11 +79,21 @@ class App extends Component {
       )
       style.backgroundColor = 'red'
     }
+    
+    let classes = []
+    if (this.state.persons.length <= 2) {
+      classes.push('red')
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold')
+      console.log(classes)
+    }
+    
 
     return (
       <div className="App">
         <h1>This is my new game</h1>
-        <p>Or is it?</p>
+        <p className={classes.join(' ')}>Or is it?</p>
         <button 
           style={style}
           onClick={this.togglePersonHandler}>Toggle Persons
