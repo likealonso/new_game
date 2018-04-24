@@ -26,6 +26,19 @@ class App extends Component {
     console.log('APP.JS inside componentDidMount ')
   }
   
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('UPDATE App.js inside shouldComponentUpdate', nextProps, 'whoa', nextState,'OK', this.props.persons)
+    return true
+  }
+
+  componentWilUpdate(nextProps, nextState) {
+    console.log('update App.js inside componentWillUpdate', nextProps, nextState)
+  }
+
+  componentDidUpdate() {
+    console.log('update App.js inside componentDidUpdate')
+  }
+
   nameChangedHandler = (event, id) => {
     //index number of person
     const personIndex = this.state.persons.findIndex(p => p.id === id)
@@ -76,6 +89,7 @@ class App extends Component {
 
     return (
         <div className={classes.App}>
+        <button onClick={() => this.setState({showPersons: true})}>Show persons</button>
           <Cockpit 
             showPersons={this.state.showPersons} 
             persons={this.state.persons}  

@@ -10,6 +10,7 @@ class Persons extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     console.log('UPDATE persons.js inside shouldComponentUpdate', nextProps, 'whoa', nextState,'OK', this.props.persons)
     return nextProps.persons !== this.props.persons
+    // return true
   }
 
   componentWilUpdate(nextProps, nextState) {
