@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
+import WithClass from '../hoc/WithClass'
 
 class App extends Component {
   constructor(props) {
@@ -26,10 +27,10 @@ class App extends Component {
     console.log('APP.JS inside componentDidMount ')
   }
   
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('UPDATE App.js inside shouldComponentUpdate', nextProps, 'whoa', nextState,'OK', this.props.persons)
-    return true
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('UPDATE App.js inside shouldComponentUpdate', nextProps, 'whoa', nextState,'OK', this.props.persons)
+  //   return true
+  // }
 
   componentWilUpdate(nextProps, nextState) {
     console.log('update App.js inside componentWillUpdate', nextProps, nextState)
@@ -88,7 +89,7 @@ class App extends Component {
     }
 
     return (
-        <div className={classes.App}>
+        <WithClass classes={classes.App}>
         <button onClick={() => this.setState({showPersons: true})}>Show persons</button>
           <Cockpit 
             showPersons={this.state.showPersons} 
@@ -96,7 +97,7 @@ class App extends Component {
             clicked={this.togglePersonHandler}
           />
           {persons}
-        </div>
+        </WithClass>
     );
     // compiles to ...
     // return React.createElement('div', {className:'App'}, React.createElement('h1', null, 'This isn\'t my new game'))
