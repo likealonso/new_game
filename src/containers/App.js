@@ -5,7 +5,6 @@ import Cockpit from '../components/Cockpit/Cockpit'
 import withClass from '../hoc/withClass'
 import Aux from '../hoc/Aux'
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +75,10 @@ class App extends Component {
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState((prevState, props) => {
-      return {showPersons: !doesShow, toggleClicked: prevState.toggleClicked + 1}
+      return {
+        showPersons: !doesShow, 
+        toggleClicked: prevState.toggleClicked + 1
+      }
     })
   }
 
