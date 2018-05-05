@@ -25,6 +25,7 @@ class Persons extends React.Component {
     return this.props.persons.map((person, index) => {
       return <Person 
       click={() => this.props.clicked(index)}
+      position={index}
       name={person.name} 
       age={person.age} 
       key={person.id}
