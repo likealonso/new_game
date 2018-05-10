@@ -5,9 +5,14 @@ import Aux from '../../../hoc/Aux'
 import PropTypes from 'prop-types'
 
 class Person extends React.Component {
+    constructor(props) {
+        super(props);
+        this.inputElement = React.createRef();
+    }
     componentDidMount(){
         if (this.props.position === 1) {
-            this.inputElement.focus()
+            console.log(this.inputElement)
+            this.inputElement.current.focus()
         }
     }
     render () {
@@ -16,7 +21,7 @@ class Person extends React.Component {
                 <p onClick={this.props.click}> I'm {this.props.name} and I'm {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input 
-                    ref = {(inp) => this.inputElement = inp}
+                    ref = {this.inputElement}
                     type='text' 
                     onChange={this.props.changed} 
                     value={this.props.name}/>
