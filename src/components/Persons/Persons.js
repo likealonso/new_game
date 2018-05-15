@@ -2,6 +2,14 @@ import React from 'react'
 import Person from './Person/Person'
 
 class Persons extends React.Component {
+  constructor(props) {
+    super(props);
+    this.lastPersonRef = React.createRef()
+  }
+
+  componentDidMount() {
+    // this.lastPersonRef.current.focus()
+  }
 
   componentWillReceiveProps(nextProps) {
     console.log('UPDATE persons.js inside componentWillReceiveProps', nextProps)
@@ -28,6 +36,7 @@ class Persons extends React.Component {
       position={index}
       name={person.name} 
       age={person.age} 
+      ref={this.lastPersonRef}
       key={person.id}
       changed={(event) => this.props.changed(event, person.id)}
       />

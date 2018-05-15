@@ -11,9 +11,12 @@ class Person extends React.Component {
     }
     componentDidMount(){
         if (this.props.position === 1) {
-            console.log(this.inputElement)
             this.inputElement.current.focus()
         }
+    }
+
+    focus(){
+        this.inputElement.current.focus()
     }
     render () {
         return (
