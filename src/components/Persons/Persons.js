@@ -1,47 +1,56 @@
-import React from 'react'
-import Person from './Person/Person'
+import React, { PureComponent } from 'react';
 
-class Persons extends React.Component {
-  constructor(props) {
-    super(props);
-    this.lastPersonRef = React.createRef()
-  }
+import Person from './Person/Person';
 
-  componentDidMount() {
-    // this.lastPersonRef.current.focus()
-  }
+class Persons extends PureComponent {
+    constructor( props ) {
+        super( props );
+        console.log( '[Persons.js] Inside Constructor', props );
+        this.lastPersonRef = React.createRef();
+    }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('UPDATE persons.js inside componentWillReceiveProps', nextProps)
-  }
+    componentWillMount () {
+        console.log( '[Persons.js] Inside componentWillMount()' );
+    }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('UPDATE persons.js inside shouldComponentUpdate', nextProps, 'whoa', nextState,'OK', this.props.persons)
-    return nextProps.persons !== this.props.persons
-    // return true
-  }
+    componentDidMount () {
+        console.log( '[Persons.js] Inside componentDidMount()' );
+        this.lastPersonRef.current.focus();
+    }
 
-  componentWilUpdate(nextProps, nextState) {
-    console.log('update persons.js inside componentWillUpdate', nextProps, nextState)
-  }
+    componentWillReceiveProps ( nextProps ) {
+        console.log( '[UPDATE Persons.js] Inside componentWillReceiveProps', nextProps );
+    }
 
-  componentDidUpdate() {
-    console.log('update persons.js inside componentDidUpdate')
-  }
+    // shouldComponentUpdate ( nextProps, nextState ) {
+    //     console.log( '[UPDATE Persons.js] Inside shouldComponentUpdate', nextProps, nextState );
+    //     return nextProps.persons !== this.props.persons ||
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked;
+    //     // return true;
+    // }
 
-  render() {
-    return this.props.persons.map((person, index) => {
-      return <Person 
-      click={() => this.props.clicked(index)}
-      position={index}
-      name={person.name} 
-      age={person.age} 
-      ref={this.lastPersonRef}
-      key={person.id}
-      changed={(event) => this.props.changed(event, person.id)}
-      />
-    })
-  }
+    componentWillUpdate ( nextProps, nextState ) {
+        console.log( '[UPDATE Persons.js] Inside componentWillUpdate', nextProps, nextState );
+    }
+
+    componentDidUpdate () {
+        console.log( '[UPDATE Persons.js] Inside componentDidUpdate' );
+    }
+
+    render () {
+        console.log( '[Persons.js] Inside render()' );
+        return this.props.persons.map( ( person, index ) => {
+            return <Person
+                click={() => this.props.clicked( index )}
+                name={person.name}
+                position={index}
+                age={person.age}
+                ref={this.lastPersonRef}
+                key={person.id}
+                changed={( event ) => this.props.changed( event, person.id )} />
+        } );
+    }
 }
-    
-export default Persons
+
+export default Persons;
